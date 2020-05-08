@@ -1,0 +1,92 @@
+SquareController.cs
+
+
+
+using System;
+using Microsoft.AspNetCore.Mvc;
+
+namespace newTask.Controllers
+{
+    public class SquareRootController : Controller
+    {
+        [HttpGet]
+        public ActionResult Enter()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Enter(int firstNumber,int secondNumber)
+        {
+            double sqrtOne = Math.Sqrt(firstNumber);
+            double sqrtTwo = Math.Sqrt(secondNumber);
+            double resultOne = sqrtOne;
+            double resultTwo = sqrtTwo;
+
+            if (sqrtOne > sqrtTwo)
+            {
+                ViewBag.Result = resultOne;
+            }
+
+            else if (sqrtOne < sqrtTwo)
+            {
+                ViewBag.Result = resultTwo;
+            }
+
+            else if (sqrtOne == sqrtTwo)
+            {
+                ViewBag.Result = resultOne;
+            }
+
+            return View();
+
+        }
+    }
+}    
+
+
+
+
+
+
+Enter.cshtml
+
+
+
+
+@{
+    ViewData["Title"] = "Task Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">C# Task 4</h1>
+    <p>Welcome. Please input two numbers to find the number with the greatest square root.</p>
+</div>
+<div>
+       @{
+         if(ViewBag.Result < 0 )
+            {
+            <div>
+                <p>Oops! This is an error. Please try again.</p>
+            </div>
+            }
+         else if ( ViewBag.Result != null )
+            {
+                <div>
+                    <p>The result is: @ViewBag.Result</p>
+                </div>
+            }
+        }
+</div>
+
+<div>
+
+    <form asp-controller="SquareRoot" asp-action="Enter" method="POST">
+       <input type="text" placeholder="First Number" name="firstNumber" required/>
+       <input type="text" placeholder="Second Number" name="secondNumber" required/>
+       <button type="submit"> Submit</button>
+     </form>
+
+</div>
+
+
